@@ -18,7 +18,7 @@ harmony_instance.print_ea_message = False
 harmony_session.SOURCE_HEADER = 'harmony-endpoint-cli'
 
 
-def __clear_tests(plain_text):
+def __clear_text(plain_text):
     return re.sub(r'<.*?>', '', unescape(plain_text.encode('utf-8').decode('unicode_escape')))
 
 
@@ -105,7 +105,7 @@ def main_function():
                 print(f'- {method.get("method_name")}')
                 method_description = method.get("method_description")
                 if method_description:
-                    print(f'    {__clear_tests(method_description)}')
+                    print(f'    {__clear_text(method_description)}')
                 print(f'')
         return
 
