@@ -8,7 +8,7 @@ if os.path.exists('./.env'):
     from dotenv import load_dotenv
     load_dotenv()
 
-version = '1.0.11'
+version = '1.0.17'
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text(encoding='utf-8')

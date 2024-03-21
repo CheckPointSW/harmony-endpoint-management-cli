@@ -1,139 +1,21 @@
 name: Build CLI
-
-on: [push]
-
-defaults:
-  run:
-    shell: bash
-
+on: [pull_request]
 jobs:
   build:
-    name: Build Binaries
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-          - windows-latest
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.8
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip pyinstaller
-          pip install -r requirements.txt
-
-      - name: Build Binaries
-        run: |
-          export BUILD_JOB_ID=$GITHUB_RUN_ID
-          pip install . 
-          pyinstaller --onefile --name=chkp-harmony-endpoint-management-cli-${{ matrix.os }} chkp_harmony_endpoint_management_cli/index.py --icon=assets/harmony-endpoint.ico
-
-      - name: Deploy artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: chkp-harmony-endpoint-management-cli-${{ matrix.os }}
-          path: dist/chkp-harmony-endpoint-management-cli-${{ matrix.os }}*
-          if-no-files-found: error
-
-  test:
-    needs: build
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-          - windows-latest
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/download-artifact@master
-        with:
-          name: chkp-harmony-endpoint-management-cli-${{ matrix.os }}
-          path: chkp-harmony-endpoint-management-cli-${{ matrix.os }}
-
-      - name: Add execution permission
-        if: matrix.os != 'windows-latest'
-        run: |
-          ls -a
-          chmod +x chkp-harmony-endpoint-management-cli-${{ matrix.os }}/chkp-harmony-endpoint-management-cli-${{ matrix.os }}
-
-      - name: Test CLI Bin
-        run: |
-          ./chkp-harmony-endpoint-management-cli-${{ matrix.os }}/chkp-harmony-endpoint-management-cli-${{ matrix.os }} --info
-
-  release-binaries:
-    needs:
-      - build
-      - test
-
-    if: github.ref == 'refs/heads/main'
-
-    permissions: write-all
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
+      - uses: actions/checkout@v4
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
-
-      - uses: actions/download-artifact@master
-        with:
-          name: chkp-harmony-endpoint-management-cli-windows-latest
-          path: chkp-harmony-endpoint-management-cli-windows-latest
-
-      - uses: actions/download-artifact@master
-        with:
-          name: chkp-harmony-endpoint-management-cli-macos-latest
-          path: chkp-harmony-endpoint-management-cli-macos-latest
-
-      - uses: actions/download-artifact@master
-        with:
-          name: chkp-harmony-endpoint-management-cli-ubuntu-latest
-          path: chkp-harmony-endpoint-management-cli-ubuntu-latest
-
-      - name: Prepare Release
-        id: get_version
+          python-version: '3.8'
+      - name: Build SDK
         run: |
+          pip install -r requirements.txt
+          export BUILD_JOB_ID=$GITHUB_RUN_ID
+          pip install .
 
-          mv ./chkp-harmony-endpoint-management-cli-windows-latest/chkp-harmony-endpoint-management-cli-windows-latest.exe chkp_harmony_endpoint_management_cli_win.exe
-          mv ./chkp-harmony-endpoint-management-cli-macos-latest/chkp-harmony-endpoint-management-cli-macos-latest chkp_harmony_endpoint_management_cli_macos
-          mv ./chkp-harmony-endpoint-management-cli-ubuntu-latest/chkp-harmony-endpoint-management-cli-ubuntu-latest chkp_harmony_endpoint_management_cli_linux
-          export VERSION=$(python setup.py --version)
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          echo "TITLE=DRAFT" >> $GITHUB_OUTPUT
-          echo "BODY=""" >> $GITHUB_OUTPUT
-
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
         with:
-          draft: true
-          prerelease: true
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          name: ${{ steps.get_version.outputs.TITLE }}
-          body: ${{ steps.get_version.outputs.BODY }}
-          files: |
-            chkp_harmony_endpoint_management_cli_win.exe
-            chkp_harmony_endpoint_management_cli_macos
-            chkp_harmony_endpoint_management_cli_linux
-    
+          name: chkp_harmony_endpoint_management_cli
+          path: chkp_harmony_endpoint_management_cli

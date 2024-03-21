@@ -44,7 +44,7 @@ First of all, need to create CloudInfra API credentials, to obtain it, open the 
 
 Once the Client ID, Secret Key, and Authentication URL are obtained, Harmony Endpoint CLI can be used.
 
-Before starting, run the help command to understand how to pass the payload and all the available options.
+Before starting, run the help command to understand how to pass the operation's parameters and payload with all the available options.
 ```bash
 chkp_harmony_endpoint_management_cli --help
 ```
@@ -71,7 +71,6 @@ chkp_harmony_endpoint_management_cli --operation get_all_rules_metadata --query-
 ```
 
 All APIs and the optional/required parameters can be explored in [SwaggerHub](https://app.swaggerhub.com/apis/Check-Point/web-mgmt-external-api-production)
-
 
 ### ☁️ Cloud & MSSP services APIs
 
