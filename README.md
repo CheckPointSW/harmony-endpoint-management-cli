@@ -31,9 +31,7 @@ For feedback, please get in touch with us at [Check Point Software Technologies 
 
 ## ⬇️ CLI Download
 
-To start using this CLI, simpley download the relevant OS binary from the [Release](https://github.com/CheckPointSW/harmony-endpoint-management-cli/releases/latest)
-
-Or install it via PIP (PyPi registry) as global python command
+To start using this CLI, install it via PIP (PyPi registry) as a global python command
 ```bash 
 pip install chkp-harmony-endpoint-management-cli
 ```
