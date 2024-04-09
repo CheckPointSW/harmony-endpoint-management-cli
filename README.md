@@ -8,7 +8,7 @@ Coming soon :)
 
 [![GitHub stars](https://img.shields.io/github/stars/CheckPointSW/harmony-endpoint-management-cli.svg?style=social&label=Star)](https://github.com/CheckPointSW/harmony-endpoint-management-cli/stargazers) -->
 
-[![Build CLI](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/build.yml/badge.svg)](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/build.yml) [![Publish CLI](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/release.yml/badge.svg)](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/release.yml)
+[![Build CLI](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/build.yaml/badge.svg)](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/build.yaml) [![Publish CLI](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/release.yml/badge.svg)](https://github.com/CheckPointSW/harmony-endpoint-management-cli/actions/workflows/release.yml)
 
 This is the Harmony Endpoint management CLI
 
