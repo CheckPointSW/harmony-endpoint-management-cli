@@ -16,19 +16,6 @@ The CLI is based on the public [Harmony Endpoint management OpenAPI](https://app
 
 With the CLI, you do not have to manage log in, send keep alive requests, worry about session expiration or pull long processing jobs.
 
----
-🚧🚧🚧
-
-**Note that the CLI is in Early Availability (EA). Use with caution, as it may undergo changes and improvements. Feedback and contributions are highly encouraged.**
-
-To report a bug, please go to [Report Bug](#-report-bug)
-
-For feedback, please get in touch with us at [Check Point Software Technologies Ltd.](mailto:harmony-endpoint-external-api@checkpoint.com)
-
-🚧🚧🚧
-
----
-
 ## ⬇️ CLI Download
 
 To start using this CLI, install it via PIP (PyPi registry) as a global python command
